@@ -34,7 +34,7 @@ const samplePhotos: Photo[] = [
     src: '/IMG_6161.jpg',
     alt: 'Event',
     title: 'GUIC Conference',
-    description: 'Presenting our project on prestigious Gandai University Conference.',
+    description: 'Presenting our project on prestigious Gandaki University Conference.',
     category: 'Event',
     date: '2024-01-20'
   },
