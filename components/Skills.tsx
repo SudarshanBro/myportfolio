@@ -81,17 +81,7 @@ const skillCategories = [
       { name: 'Mobile UI', level: 85, icon: Palette }
     ]
   },
-  {
-    title: 'AI & Machine Learning',
-    icon: Brain,
-    color: 'from-orange-600 to-red-600',
-    skills: [
-      { name: 'Deep Learning', level: 85, icon: Brain },
-      { name: 'CNN/LSTM', level: 80, icon: Layers },
-      { name: 'NLP', level: 75, icon: MessageSquare },
-      { name: 'Computer Vision', level: 78, icon: Eye }
-    ]
-  },
+  
   {
     title: 'Tools & Others',
     icon: Settings,
