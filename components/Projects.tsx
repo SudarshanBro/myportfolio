@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Code, Smartphone, Brain, Globe, Headphones, ChefHat } from 'lucide-react';
+import { Github, ExternalLink, Code, Smartphone, Brain, Globe, Headphones, ChefHat, Database } from 'lucide-react';
 import { useState } from 'react';
 
 const projects = [
@@ -76,6 +76,22 @@ const projects = [
       'Emergency alerts',
       'Driver safety analytics'
     ]
+  },
+  {
+    title: 'Sulav Kirana Stores',
+    description: 'A full-featured ecommerce website of a own local stores, with warehouse management. Includes inventory tracking, order management, and a modern shopping experience.',
+    technologies: ['TypeScript', 'Node.js', 'MongoDB', 'Warehouse Management', 'Ecommerce'],
+    category: 'Web',
+    icon: Database,
+    color: 'from-green-700 to-blue-700',
+    features: [
+      'Warehouse and inventory management',
+      'Order and customer management',
+      'Modern ecommerce UI/UX',
+      'Admin dashboard',
+      'Built with TypeScript, Node.js, MongoDB'
+    ],
+    githubUrl: 'https://github.com/SudarshanBro/sulavkiranastores'
   },
 
 
