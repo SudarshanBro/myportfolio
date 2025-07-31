@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, YouTube, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, Youtube, Linkedin } from 'lucide-react';
 import { useState } from 'react';
 
 const contactInfo = [
@@ -40,9 +40,9 @@ const socialLinks = [
     color: 'from-blue-600 to-blue-800'
   },
   {
-    name: 'YouTube',
+    name: 'Youtube',
     href: 'https://www.youtube.com/@ItsMeMahesh0126',
-    icon: YouTube,
+    icon: Youtube,
     color: 'from-red-600 to-red-800'
   }
 ];
