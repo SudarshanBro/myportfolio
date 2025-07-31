@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Github, YouTube, Linkedin } from 'lucide-react';
 import { useState } from 'react';
 
 const contactInfo = [
@@ -32,11 +32,18 @@ const socialLinks = [
     icon: Github,
     color: 'from-gray-600 to-gray-800'
   },
+  
   {
     name: 'LinkedIn',
     href: 'https://linkedin.com/in/sudarshan-acharya',
     icon: Linkedin,
     color: 'from-blue-600 to-blue-800'
+  },
+  {
+    name: 'YouTube',
+    href: 'https://www.youtube.com/@ItsMeMahesh0126',
+    icon: YouTube,
+    color: 'from-gray-600 to-gray-800'
   }
 ];
 
