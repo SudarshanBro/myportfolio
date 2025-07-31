@@ -21,7 +21,8 @@ const contactInfo = [
     icon: MapPin,
     label: 'Location',
     value: 'Pokhara, Nepal',
-    href: '#'
+    href: '#',
+    isLink: false
   }
 ];
 
@@ -32,7 +33,6 @@ const socialLinks = [
     icon: Github,
     color: 'from-gray-600 to-gray-800'
   },
-  
   {
     name: 'LinkedIn',
     href: 'https://linkedin.com/in/sudarshan-acharya',
@@ -43,29 +43,45 @@ const socialLinks = [
     name: 'YouTube',
     href: 'https://www.youtube.com/@ItsMeMahesh0126',
     icon: YouTube,
-    color: 'from-gray-600 to-gray-800'
+    color: 'from-red-600 to-red-800'
   }
 ];
 
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
 export function Contact() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus('idle');
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    console.log('Form submitted:', formData);
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setIsSubmitting(false);
+    try {
+      // Simulate form submission
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      console.log('Form submitted:', formData);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setSubmitStatus('success');
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -73,6 +89,49 @@ export function Contact() {
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  const ContactItem = ({ item, index }: { item: typeof contactInfo[0], index: number }) => {
+    const content = (
+      <div className="flex items-center space-x-4 glass-card hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 p-4">
+        <div className="p-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg">
+          <item.icon className="w-5 h-5 text-white" />
+        </div>
+        <div>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{item.label}</p>
+          <p className="font-medium text-gray-800 dark:text-white">{item.value}</p>
+        </div>
+      </div>
+    );
+
+    if (item.isLink === false) {
+      return (
+        <motion.div
+          key={item.label}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.1 }}
+        >
+          {content}
+        </motion.div>
+      );
+    }
+
+    return (
+      <motion.a
+        key={item.label}
+        href={item.href}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.1 }}
+        whileHover={{ scale: 1.02, x: 5 }}
+        className="block"
+      >
+        {content}
+      </motion.a>
+    );
   };
 
   return (
@@ -118,24 +177,7 @@ export function Contact() {
             {/* Contact Details */}
             <div className="space-y-6">
               {contactInfo.map((item, index) => (
-                <motion.a
-                  key={item.label}
-                  href={item.href}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.02, x: 5 }}
-                  className="flex items-center space-x-4 glass-card hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300"
-                >
-                  <div className="p-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg">
-                    <item.icon className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{item.label}</p>
-                    <p className="font-medium text-gray-800 dark:text-white">{item.value}</p>
-                  </div>
-                </motion.a>
+                <ContactItem key={item.label} item={item} index={index} />
               ))}
             </div>
 
@@ -158,6 +200,7 @@ export function Contact() {
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.9 }}
                     className={`p-4 glass-card hover:bg-gradient-to-r ${link.color} hover:text-white transition-all duration-300 group`}
+                    aria-label={`Visit ${link.name} profile`}
                   >
                     <link.icon className="w-6 h-6" />
                   </motion.a>
@@ -172,13 +215,25 @@ export function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="glass-card"
+            className="glass-card p-8"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
+              {submitStatus === 'success' && (
+                <div className="p-4 bg-green-100 dark:bg-green-900/20 border border-green-300 dark:border-green-700 rounded-lg text-green-800 dark:text-green-300">
+                  Message sent successfully! I'll get back to you soon.
+                </div>
+              )}
+              
+              {submitStatus === 'error' && (
+                <div className="p-4 bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-700 rounded-lg text-red-800 dark:text-red-300">
+                  Failed to send message. Please try again.
+                </div>
+              )}
+
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Full Name
+                    Full Name *
                   </label>
                   <input
                     type="text"
@@ -193,7 +248,7 @@ export function Contact() {
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Email Address
+                    Email Address *
                   </label>
                   <input
                     type="email"
@@ -210,7 +265,7 @@ export function Contact() {
 
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Subject
+                  Subject *
                 </label>
                 <input
                   type="text"
@@ -226,7 +281,7 @@ export function Contact() {
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Message
+                  Message *
                 </label>
                 <textarea
                   id="message"
@@ -243,12 +298,15 @@ export function Contact() {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                 className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
               >
                 {isSubmitting ? (
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Sending...</span>
+                  </>
                 ) : (
                   <>
                     <Send className="w-5 h-5" />
