@@ -5,7 +5,7 @@ import { Github, Linkedin, Mail, MapPin, Phone, Download } from 'lucide-react';
 
 const socialLinks = [
   { name: 'GitHub', href: 'https://github.com/SudarshanBro', icon: Github },
-  { name: 'LinkedIn', href: 'https://linkedin.com/in/sudarshan-acharya', icon: Linkedin },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/sudarshan-acharya22/', icon: Linkedin },
   { name: 'Email', href: 'mailto:avilashisudarshan@gmail.com', icon: Mail },
 ];
 
