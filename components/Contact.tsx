@@ -35,7 +35,7 @@ const socialLinks = [
   },
   {
     name: 'LinkedIn',
-    href: 'https://linkedin.com/in/sudarshan-acharya',
+    href: 'https://www.linkedin.com/in/sudarshan-acharya22/',
     icon: Linkedin,
     color: 'from-blue-600 to-blue-800'
   },
