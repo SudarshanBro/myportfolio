@@ -31,7 +31,7 @@ export function Footer() {
             {[
               { icon: Github, href: 'https://github.com/SudarshanBro', label: 'GitHub' },
               { icon: Mail, href: 'mailto:avilashisudarshan@gmail.com', label: 'Email' },
-              { icon: Linkedin, href: 'https://linkedin.com/in/sudarshan-acharya', label: 'LinkedIn' },
+              { icon: Linkedin, href: 'https://www.linkedin.com/in/sudarshan-acharya22/', label: 'LinkedIn' },
               { icon: Facebook, href: 'https://www.facebook.com/maheshacharya.0126', label: 'Facebook' },
               { icon: Instagram, href: 'https://www.instagram.com/ach_mahesh_2.0/', label: 'Instagram' },
             ].map((social, index) => (
